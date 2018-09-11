@@ -1,0 +1,73 @@
+---Week1
+select employee_id,last_name,job_id,hire_date STARTDATE
+from employees;
+
+-- 2
+select distinct job_id
+from employees;
+
+--3
+select last_name||','||job_id AS "EMPLPYEES AND TITLE"
+from employees;
+
+SELECT last_name ||' is a '||job_id 
+       AS "Employee Details"
+FROM   employees;
+
+--4
+SELECT last_name,salary
+FROM employees
+where salary >12000  ;
+--5
+select last_name ,salary
+from employees
+where salary not between 5000 and 12000 ;
+
+--6
+select last_name,salary,hire_date startdate
+from employees
+where last_name like 'Matos' or
+    last_name like 'Taylor'
+    order by hire_date asc;
+    
+--7
+select last_name,department_id
+from employees
+where department_id =20 or
+     department_id =50
+     order by last_name asc;
+--8
+select last_name Employee,salary MonthlySalary
+from employees
+where salary between 5000 and 12000
+And department_id in(20,50);
+
+--9
+select last_name,hire_date
+from employees
+where hire_date between '1-JAN-1994' and '31-DEC-1994';
+
+--10
+SELECT last_name,job_id
+from employees
+where manager_id is  null;
+
+--11
+select last_name,salary,commission_pct
+from employees
+order by 2,3 desc;
+--12
+select last_name
+from employees
+where last_name like '__a%'  ;
+
+--13
+select last_name
+from employees
+where last_name like '%a%' or 
+     last_name like '%e%';
+
+
+
+
+
