@@ -1,0 +1,186 @@
+--Write a query to display the last names of the employees who have one or more co-workers in their departments with later hire dates but higher salaries.
+---
+select last_name
+from employees outer
+where department_id in (select department_id
+        from employees d
+        where d.department_id=outer.department_id
+        and d.hire_date>outer.hire_date
+        and d.salary>outer.salary);
+        
+        
+        
+select country_name
+from countries c
+where country_id not in(select country_id
+from locations l
+where location_id in(select location_id
+                            from departments
+                             where location_id=l.location_id 
+                             ));
+  ---normal step 
+  
+  
+select country_name
+from countries 
+where country_id not in(select country_id
+from locations l
+where location_id in(select location_id
+                            from departments
+                             ));
+                             
+                             
+  
+    select distinct location_id
+    from departments;
+    
+ select country_name
+from countries 
+where country_id not in('US','CA','DE','UK');
+
+select country_name
+from countries 
+where country_id not in('US','CA','DE','UK');
+
+
+      
+        select first_name,last_name,salary
+        from employees
+        where salary>(select avg(salary)
+        from employees);
+        --the question is retrieve the averge salary of employees in their department
+        select first_name,last_name,salary, ol.city
+        from employees e, departments od, locations ol
+        where e.department_id=od.department_id
+        and od.location_id = ol.location_id
+        and salary>
+        (select avg(salary) 
+        from employees e1, departments d, locations l
+        where e1.department_id=d.department_id
+        and d.location_id = l.location_id
+        and l.city = ol.city
+        group by l.city
+        );
+
+SELECT last_name,salary
+from employees 
+where salary>ALL(select salary
+                  from employees
+                  where job_id='SA_MAN'
+                  )
+order by salary desc ;
+
+SELECT last_name,salary
+from employees OUTER
+where salary>ALL(select salary
+                  from employees
+                  where job_id='SA_MAN'
+                  AND EMPLOYEE_ID=OUTER.EMPLOYEE_ID
+                  )
+order by salary desc;
+
+SELECT COUNT(*)
+FROM COUNTRIES C
+WHERE c.country_id NOT IN(SELECT L.COUNTRY_ID
+                      FROM LOCATIONS L,DEPARTMENTS D
+                      WHERE L.LOCATION_ID=D.LOCATION_ID
+                      AND L.COUNTRY_ID =C.COUNTRY_ID);
+
+SELECT DISTINCT C.*
+FROM COUNTRIES C JOIN  LOCATIONS L
+ON  L.COUNTRY_ID = C.COUNTRY_ID
+JOIN DEPARTMENTS D
+ON L.LOCATION_ID=D.LOCATION_ID;
+
+SELECT DISTINCT L.LOCATION_ID
+FROM DEPARTMENTS D CROSS JOIN LOCATIONS L
+ON L.LOCATION_ID=D.LOCATION_ID;
+
+---view
+create or  replace view deparmentOverview
+(deparmentid,departmentname,managername,city)
+AS select d.department_id,d.department_name,e.last_name,l.city
+from departments d  join employees e
+on (d.manager_id=e.employee_id)
+--and d.manager_id=e.employee_id
+join locations l
+on (l.location_id=d.location_id);
+
+Describe DEPARMENTOVERVIEW
+
+select *
+from DEPARMENTOVERVIEW;
+
+
+
+
+CREATE VIEW 	salvu50
+ AS SELECT  employee_id ID_NUMBER, last_name NAME,
+            salary*12 ANN_SALARY
+    FROM    employees
+    WHERE   department_id = 50;
+    
+    
+-------exercise 4-----------------------------------------------------------------------------------------------------------
+Select hire_date,avg(salary) AverageSalary
+from employees
+group by hire_date
+order by AverageSalary desc;
+
+select sysdate,hire_date,(sysdate-hire_date)
+from dual,employees;
+
+SELECT last_name, (SYSDATE-hire_date)--/7 AS WEEKS
+FROM   employees
+WHERE  department_id = 90;
+
+
+----exercise 5-------------------------------------------------------------------------
+select department_name
+from departments
+where department_id in (select department_id
+                        from employees
+                        group by department_id
+                        having count(employee_id)>=5
+                        );
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+select department_id,count(employee_id)
+from employees
+group by department_id
+having count(employee_id)>=5;
+
+
+
+
+    
+    select *
+    from employees
+    where manager_id in(select manager_id
+                         from departments );
+                         
+                         select manager_id
+                         from departments;
+     
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+select department_id ,max(count(employee_id))
+from employees
+group by department_id
+
+select department_id, count(*)
+from employees
+having count(employee_id)>=(select max(count(employee_id)
+                         from employees
+                         group by department_id);
+                             
+
+select department_name
+from departments d join employees e
+on(d.depaerment_id=d.department_id)
+having 
+
+
+
+
+      
